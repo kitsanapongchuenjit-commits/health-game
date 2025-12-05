@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>เกมสุขภาพ - ท้าทายวันละคำถาม</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #4CAF50, #81C784);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .card {
+      background: white;
+      margin: 30px auto;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 16px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      margin: 8px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #388E3C;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h2>🎮 เกมสุขภาพ</h2>
+    <p id="question">กดเริ่มเกม</p>
+
+    <button onclick="answer(0)">ตัวเลือก 1</button><br>
+    <button onclick="answer(1)">ตัวเลือก 2</button><br>
+    <button onclick="answer(2)">ตัวเลือก 3</button><br>
+
+    <h3 id="score">คะแนน: 0</h3>
+    <button onclick="startGame()">เริ่มเกมใหม่</button>
+  </div>
+
+<script>
+const quiz = [
+  {
+    q: "ข้อใดช่วยลดความเสี่ยงเบาหวานได้ดีที่สุด?",
+    c: ["กินหวานทุกวัน", "ออกกำลังกายสม่ำเสมอ", "นอนดึก"],
+    a: 1
+  },
+  {
+    q: "ควรดื่มน้ำอย่างน้อยวันละกี่แก้ว?",
+    c: ["2 แก้ว", "4 แก้ว", "8 แก้ว"],
+    a: 2
+  },
+  {
+    q: "ผักสีอะไรมีวิตามินเอสูง?",
+    c: ["เขียว", "เหลือง-ส้ม", "ขาว"],
+    a: 1
+  }
+];
+
+let score = 0;
+let index = 0;
+
+function startGame() {
+  score = 0;
+  index = 0;
+  updateQuiz();
+}
+
+function updateQuiz() {
+  document.getElementById("question").innerText = quiz[index].q;
+  let btns = document.getElementsByTagName("button");
+  btns[0].innerText = quiz[index].c[0];
+  btns[1].innerText = quiz[index].c[1];
+  btns[2].innerText = quiz[index].c[2];
+  document.getElementById("score").innerText = "คะแนน: " + score;
+}
+
+function answer(i) {
+  if (i === quiz[index].a) {
+    score++;
+    alert("✅ ถูกต้อง!");
+  } else {
+    alert("❌ ผิดจ้า");
+  }
+
+  index++;
+  if (index >= quiz.length) {
+    alert("🎉 เกมจบแล้ว! คะแนนรวม: " + score);
+    startGame();
+  } else {
+    updateQuiz();
+  }
+}
+</script>
+
+</body>
+</html>
